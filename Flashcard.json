@@ -1,0 +1,61 @@
+[
+  {"question": "What is the formula for the area of a triangle?", "answer": "0.5 * base * height"},
+  {"question": "What is the square root of 121?", "answer": 11},
+  {"question": "Simplify: 3x + 5x", "answer": "8x"},
+  {"question": "What is 15% of 200?", "answer": 30},
+  {"question": "Convert 0.75 to a fraction.", "answer": "3/4"},
+  
+  {"question": "What is the chemical symbol for gold?", "answer": "Au"},
+  {"question": "What gas do plants use for photosynthesis?", "answer": "Carbon dioxide"},
+  {"question": "What is the main function of red blood cells?", "answer": "To carry oxygen"},
+  {"question": "What is the pH of a neutral solution?", "answer": 7},
+  {"question": "What is the unit of force?", "answer": "Newton"},
+
+  {"question": "What is the name of the planet closest to the sun?", "answer": "Mercury"},
+  {"question": "What is the boiling point of water in Celsius?", "answer": 100},
+  {"question": "What is the largest organ in the human body?", "answer": "Skin"},
+  {"question": "Name one renewable source of energy.", "answer": "Solar"},
+  {"question": "What organ is responsible for pumping blood?", "answer": "Heart"},
+
+  {"question": "What is the binary representation of the number 5?", "answer": "101"},
+  {"question": "What does HTML stand for?", "answer": "HyperText Markup Language"},
+  {"question": "What data structure uses LIFO?", "answer": "Stack"},
+  {"question": "What is a variable in programming?", "answer": "A named storage for data"},
+  {"question": "What is the purpose of an algorithm?", "answer": "To solve a problem step-by-step"},
+
+  {"question": "What does CPU stand for?", "answer": "Central Processing Unit"},
+  {"question": "What does RAM stand for?", "answer": "Random Access Memory"},
+  {"question": "Which loop repeats a set number of times?", "answer": "For loop"},
+  {"question": "What is a Boolean value?", "answer": "True or False"},
+  {"question": "What is the function of a compiler?", "answer": "To translate code into machine language"},
+
+  {"question": "What is a metaphor?", "answer": "A comparison without using 'like' or 'as'"},
+  {"question": "Define 'alliteration'.", "answer": "Repetition of consonant sounds"},
+  {"question": "What is the purpose of a persuasive text?", "answer": "To convince the reader"},
+  {"question": "What does the term 'narrator' mean?", "answer": "The person telling the story"},
+  {"question": "What is the setting in a story?", "answer": "Time and place of the events"},
+
+  {"question": "What is the capital of the UK?", "answer": "London"},
+  {"question": "Name a country in South America.", "answer": "Brazil"},
+  {"question": "What is an ecosystem?", "answer": "A community of living and non-living things"},
+  {"question": "What is urbanisation?", "answer": "The growth of cities"},
+  {"question": "What does GDP stand for?", "answer": "Gross Domestic Product"},
+
+  {"question": "What is erosion?", "answer": "Wearing away of land by wind, water, or ice"},
+  {"question": "What is a tectonic plate?", "answer": "A section of the Earth's crust"},
+  {"question": "What causes earthquakes?", "answer": "Movement of tectonic plates"},
+  {"question": "What is a biome?", "answer": "A large natural ecosystem"},
+  {"question": "Name a desert in Africa.", "answer": "Sahara"},
+
+  {"question": "What is the opposite of 'increase'?", "answer": "Decrease"},
+  {"question": "Give a synonym for 'happy'.", "answer": "Joyful"},
+  {"question": "What is an adjective?", "answer": "A word that describes a noun"},
+  {"question": "What punctuation is used to show possession?", "answer": "Apostrophe"},
+  {"question": "What is a conjunction?", "answer": "A word that joins clauses or sentences"},
+
+  {"question": "What tense is the sentence: 'She was running'?", "answer": "Past continuous"},
+  {"question": "What is the plural of 'child'?", "answer": "Children"},
+  {"question": "What is a verb?", "answer": "A doing or action word"},
+  {"question": "What does 'compare' mean in a question?", "answer": "Find similarities and differences"},
+  {"question": "What is a simile?", "answer": "A comparison using 'like' or 'as'"}
+]

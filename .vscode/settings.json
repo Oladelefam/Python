@@ -1,0 +1,14 @@
+{
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "python.REPL.enableREPLSmartSend": false,
+    "python.testing.pytestArgs": [
+        "Pythonproj"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}

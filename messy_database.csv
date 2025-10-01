@@ -1,0 +1,56 @@
+id,name,department,salary,join_date,email,notes
+32.0,Grace,IT,35263.5,15-03-2020,frank@example.com,
+6.0,Charlie,IT,95101.73,17-12-2023,frank@example.com,Needs improvement
+33.0,Grace,finance,35486.18,10-01-2021,grace@example.com,Needs improvement
+14.0,Alice,IT,102053.33,05-09-2021,,Needs improvement
+,Bob,HR,88693.04,??-??-????,grace@example.com,N/A
+50.0,Bob,Marketing,78387.1,26-11-2023,grace@example.com,Good performer
+,Charlie,finance,89163.58,22-08-2021,grace@example.com,Needs improvement
+,Charlie,Finance,113386.63,27-09-2020,,N/A
+44.0,Bob,Finance,90275.34,13-08-2023,charlie@example.com,
+,Frank,Marketing,35455.14,18-12-2022,alice@example.com,
+31.0,Eve,IT,47090.81,26-11-2023,david@example.com,N/A
+4.0,Eve,Sales,76274.05,27-02-2022,david@example.com,Needs improvement
+34.0,Frank,IT,34512.81,09-04-2023,bob@example.com,Needs improvement
+35.0,David,Sales,112744.84,29-10-2023,,Good performer
+9.0,Hannah,Sales,38489.32,02-04-2023,eve@example.com,Needs improvement
+18.0,Grace,,36784.64,??-??-????,alice@example.com,
+7.0,David,finance,81859.05,19-01-2020,eve@example.com,N/A
+5.0,Bob,R&D,73687.3,18-06-2023,grace@example.com,
+48.0,Eve,,30838.39,31-01-2021,charlie@example.com,
+,Eve,Finance,55672.43,24-10-2021,alice@example.com,N/A
+47.0,Hannah,Finance,113611.65,08-03-2020,grace@example.com,Needs improvement
+46.0,Grace,Marketing,88095.07,11-06-2023,grace@example.com,Needs improvement
+46.0,Grace,Marketing,88095.07,11-06-2023,grace@example.com,Needs improvement
+16.0,Alice,IT,42616.41,26-06-2022,charlie@example.com,Good performer
+,Grace,IT,61886.78,30-08-2020,frank@example.com,Good performer
+17.0,Frank,HR,71636.53,05-04-2020,eve@example.com,Needs improvement
+25.0,Grace,HR,44817.34,19-07-2020,grace@example.com,
+31.0,Eve,IT,47090.81,26-11-2023,david@example.com,N/A
+38.0,Bob,Marketing,36116.48,28-02-2021,,Needs improvement
+26.0,Hannah,Marketing,,??-??-????,david@example.com,N/A
+12.0,David,Sales,88810.99,04-10-2020,frank@example.com,Good performer
+1.0,Frank,Sales,30647.18,23-08-2020,david@example.com,Needs improvement
+49.0,Alice,HR,80669.43,03-04-2022,eve@example.com,Good performer
+37.0,Hannah,Marketing,106620.83,03-09-2023,bob@example.com,Needs improvement
+30.0,David,Finance,89568.42,15-03-2020,alice@example.com,N/A
+41.0,Charlie,,33576.75,??-??-????,frank@example.com,Needs improvement
+,Frank,,35298.64,03-05-2020,,
+22.0,Frank,,97820.9,18-04-2021,frank@example.com,Good performer
+3.0,David,Finance,32827.17,24-10-2021,alice@example.com,
+14.0,Alice,IT,102053.33,05-09-2021,,Needs improvement
+40.0,Bob,R&D,81270.79,09-01-2022,grace@example.com,N/A
+36.0,Charlie,R&D,35119.16,02-01-2022,frank@example.com,
+24.0,Hannah,Marketing,107818.54,06-02-2022,bob@example.com,
+,Grace,Marketing,53905.31,25-04-2021,david@example.com,
+11.0,Eve,Finance,107745.31,12-07-2020,grace@example.com,N/A
+23.0,David,Sales,66577.27,06-03-2022,,Good performer
+19.0,Eve,finance,107037.02,09-05-2021,bob@example.com,Good performer
+18.0,Grace,,36784.64,??-??-????,alice@example.com,
+21.0,David,Finance,31328.21,23-08-2020,frank@example.com,Good performer
+,Charlie,HR,72567.56,18-09-2022,bob@example.com,Needs improvement
+43.0,Grace,finance,58473.29,09-01-2022,,
+15.0,David,,47243.11,12-02-2023,eve@example.com,N/A
+29.0,Charlie,finance,95745.48,20-09-2020,grace@example.com,Needs improvement
+40.0,Bob,R&D,81270.79,09-01-2022,grace@example.com,N/A
+39.0,Alice,Sales,66339.8,03-12-2023,eve@example.com,
