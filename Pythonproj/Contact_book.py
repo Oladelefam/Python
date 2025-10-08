@@ -1,5 +1,10 @@
+#THis code is bugging like crazy 
+
+from rich.console import Console# This is to make the CLi more user friendly
+from rich.table import Table
 import pandas as pd
 import os
+import csv
 
 print("\nWhat would you like to do? ")
 print("1.) Add contact")
@@ -10,23 +15,28 @@ print("5.) Quit")
 
 Temp_contacts = []
 
+
 """ This reads the file first and make sures the file exists. """
-if os.path.exists('Contacts.csv'):
+if os.path.exists('Contact.csv'):
+    
     try:
-        File = pd.read_csv('Contacts.csv')# Fixed 
+        File = pd.read_csv('Contact.csv') # Fixed 
     except (pd.errors.EmptyDataError, pd.errors.ParserError, TypeError):
         # file exists but is empty or malformed — create an empty DataFrame
         File = pd.DataFrame(columns=['Name', 'Phone', 'Email'])
-        File.to_csv('Contact.csv', index=False)
+        File.to_csv('Contact.csv', mode='w')
 else:
+
+        # file exists but is empty or malformed — create an empty DataFrame
     File = pd.DataFrame(columns=['Name', 'Phone', 'Email'])
-    File.to_csv('Contact.csv', index=False)
+    File.to_csv('Contact.csv', mode='w')
 
 
- 
+
 
 
 def add_contacts(name, phone, email):
+    global File
     """ Adds a contact to a list of dictionaries with the name, phone and email. """
 
     Contact = {"Name": name, "Phone": phone, "Email": email}
@@ -36,7 +46,13 @@ def add_contacts(name, phone, email):
     
 
 def list_contacts():
+    global File
     print("Name             Phone               Email\n_______________________________________________")
+    
+    List_name = list(File.loc[:, 'Phone'])
+    print(List_name)
+
+
 
 def search_contacts(name):
     pass
@@ -52,15 +68,21 @@ def export_to_csv():
 
     else:
  
-        Contact_df = pd.DataFrame(item for item in Temp_contacts)
+        Contact_df = pd.DataFrame(Temp_contacts)
 
-        Contact_df.to_csv('Contact.csv', mode="a", index=False)
+         # Check if file already exists
+        file_exists = os.path.isfile("Contact.csv")
 
+        # Write to file — only include header if it's a new file
+        Contact_df.to_csv("Contact.csv", mode="a", index=False, header=not file_exists, encoding='utf-8')
+         
+        Temp_contacts.clear()
         print("Saved!")
        
    
 
 while True:
+
     try:
         User = int(input("\nEnter choices: "))
 
@@ -79,14 +101,17 @@ while True:
             add_contacts(Name, Phone, Email)
         elif User == 2:
             list_contacts()
+
+
         elif User == 3:
 
             Finding = input("Type in the name you are looking for: ")
             search_contacts(Finding)
         elif User == 4:
             export_to_csv()
-        
-
+        elif User == 5:
+            exit("Goodbye")
+            
         else:
             print("Invalid choice, try again")
     except Exception as e:
