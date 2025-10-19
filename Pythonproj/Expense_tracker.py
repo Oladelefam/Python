@@ -58,7 +58,7 @@ def total_expenses():
         amt = [float(num)]
         
     print(f"\n£{sum(amt)} in total")
-
+ 
  
         
 
