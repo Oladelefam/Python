@@ -24,12 +24,12 @@ if os.path.exists('Contact.csv'):
     except (pd.errors.EmptyDataError, pd.errors.ParserError, TypeError):
         # file exists but is empty or malformed — create an empty DataFrame
         File = pd.DataFrame(columns=['Name', 'Phone', 'Email'])
-        File.to_csv('Contact.csv', mode='w')
+        File.to_csv('Contact.csv', mode='w', index=False)
 else:
 
         # file exists but is empty or malformed — create an empty DataFrame
     File = pd.DataFrame(columns=['Name', 'Phone', 'Email'])
-    File.to_csv('Contact.csv', mode='w')
+    File.to_csv('Contact.csv', mode='w', index=False)
 
 
 
@@ -42,24 +42,36 @@ def add_contacts(name, phone, email):
     Contact = {"Name": name, "Phone": phone, "Email": email}
 
     Temp_contacts.append(Contact)
-    print(Temp_contacts)
+    
     
 
 def list_contacts():
+    """ This list all the contact in a particular stlye.
+    This is done by reading from the global variable File and the takes the data it needs."""
     global File
     print("Name             Phone               Email\n_______________________________________________")
     
-    List_name = list(File.loc[:, 'Phone'])
-    print(List_name)
+    List_name = list(name for name in File.Name)
+    List_email = list(email for email in File.Email)
+    List_phone = list(phone for phone in File.Phone)
+
+    #This rewrites out the the data
+    for name, email, phone in zip(List_name, List_email, List_phone):
+       print(f"{name}            +44{phone}      {email}")
+       print("_____________________________________________________")
+    
+
+                    
 
 
 
-def search_contacts(name):
+def search_contacts(name):#Last one
     pass
 
 
 
 def export_to_csv():
+    "This export the data to a csv file then clears all the info from the temp list."
     global File, Temp_contacts
 
     if len(Temp_contacts) == 0: #
