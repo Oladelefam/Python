@@ -66,7 +66,17 @@ def list_contacts():
 
 
 def search_contacts(name):#Last one
-    pass
+    List_name = list(name for name in File.Name)
+    List_email = list(email for email in File.Email)
+    List_phone = list(phone for phone in File.Phone)
+    
+    for Name, email, phone in zip(List_name, List_email, List_phone):
+       if name == Name:
+           print(f"{Name}            +44{phone}      {email}")
+      
+
+    
+
 
 
 
