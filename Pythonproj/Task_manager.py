@@ -20,8 +20,8 @@ def validate(year, mon, dat):
     
     valid = datetime.datetime(year, mon, dat)
     if valid:
-       print(valid)
-       return True
+        print(valid)
+        return True
     else:
         False
 
@@ -29,12 +29,20 @@ def validate(year, mon, dat):
 
 
 def add_task(title, time, prior):
+    """ This function takes 3 parameter title, time, prior. """
 
 
-    Task= {"Title": title,
+    Task = {"Title": title,
              "DUE": time,
              "Proirity": prior,
              "Completion": False}
+    
+    with open("Tasks.json", 'w') as file:
+        json.dump(Task, file)
+        Time.clear()
+
+
+
 
 def List_task():
     pass
@@ -52,8 +60,8 @@ while True:
         # Add choice
         if User == 1:
             Title = input("\nTitle of the task: ")
-            
-            if len(Title) == 0:
+
+            while len(Title) == 0:
                 print("Title can't be empty")
                 Title = input("\nTitle of the task: ")
 
@@ -67,23 +75,24 @@ while True:
                 Time.append(Date)
 
             valid = validate(Time[0], Time[1], Time[2]) # validate(f"{x,} for x in Time")
+            add_task(Title, valid, Priority)
+        
+        elif User == 2:
+            List_task()
 
-            if valid == True:
-                add_task(Title, valid, Priority)
-            else:
-                print("Make sure the date is in the correct format - YYYY-MM-DD")
-                Time.clear()
+        elif User == 3:
+            Comp_task()
 
-                for item in Time_que:
-                    Date = int(input(f"{item}"))
+        elif User == 4:
+            del_task()
 
-                    Time.append(Date)
+        elif User == 5:
 
-            
-                
+            print("Goodbye.")
+            break
 
-            
-
+        else:
+            print("Choice has to be between 1-5")
 
     except Exception as e:
         print(e)
