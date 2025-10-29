@@ -13,23 +13,28 @@ print("==========================")
 
 Time_que = ["Enter due year: ", "\nEnter due month: ", "\nEnter due day: "]
 
-Task = []
+
 Time = []
 
-def validate(dat, mon, year):
+def validate(year, mon, dat):
     
     valid = datetime.datetime(year, mon, dat)
-    print(valid)
+    if valid:
+       print(valid)
+       return True
+    else:
+        False
+
  
 
 
-def add_task(title, time, stat, Comp):
+def add_task(title, time, prior):
 
 
-    Task = {"Title": title,
+    Task= {"Title": title,
              "DUE": time,
-             "Status": stat,
-             "Completion": Comp}
+             "Proirity": prior,
+             "Completion": False}
 
 def List_task():
     pass
@@ -43,18 +48,36 @@ while True:
     
     try:
         User = int(input("\nEnter choices: "))
+
+        # Add choice
         if User == 1:
             Title = input("\nTitle of the task: ")
-            Status = input("\nTask status(Low, Mid, High): ")
-            Comp = input("\nCompletion status: ")# I might actually remove this since when a task is added the it not completed yet so it is always false so Comp is always
+            
+            if len(Title) == 0:
+                print("Title can't be empty")
+                Title = input("\nTitle of the task: ")
 
+
+            Priority = input("\nTask status(Low, Mid, High): ")
+            
             print("________Due date in YYYY-MM-DD__________")
             for item in Time_que:
                 Date = int(input(f"{item}"))
 
                 Time.append(Date)
 
+            valid = validate(Time[0], Time[1], Time[2]) # validate(f"{x,} for x in Time")
 
+            if valid == True:
+                add_task(Title, valid, Priority)
+            else:
+                print("Make sure the date is in the correct format - YYYY-MM-DD")
+                Time.clear()
+
+                for item in Time_que:
+                    Date = int(input(f"{item}"))
+
+                    Time.append(Date)
 
             
                 
