@@ -1,5 +1,8 @@
 import datetime
 import json
+import os 
+
+
 
 print(str("===== Task Manager ====\n").center(30))
 
@@ -21,7 +24,7 @@ def validate(year, mon, dat):
     valid = datetime.datetime(year, mon, dat)
     if valid:
         print(valid)
-        return True
+        return valid.strftime("%D")
     else:
         False
 
@@ -31,15 +34,21 @@ def validate(year, mon, dat):
 def add_task(title, time, prior):
     """ This function takes 3 parameter title, time, prior. """
 
+    if os.path.exists("Tasks.json"):
 
-    Task = {"Title": title,
-             "DUE": time,
-             "Proirity": prior,
-             "Completion": False}
+        Task = {"Title": title,
+                "DUE": time,
+                "Proirity": prior,
+                "Completion": False}
     
-    with open("Tasks.json", 'w') as file:
-        json.dump(Task, file)
-        Time.clear()
+        
+
+        with open("Tasks.json", 'a') as file:
+            Save = json.dump(Task, file, indent=4)
+    else:
+        with open("Tasks.json", 'w') as file:
+            Save = json.dump([])       
+    
 
 
 
@@ -53,9 +62,9 @@ def del_task():
     pass
 
 while True:
-    
+
+    User = int(input("\nEnter choices: "))
     try:
-        User = int(input("\nEnter choices: "))
 
         # Add choice
         if User == 1:
@@ -75,6 +84,7 @@ while True:
                 Time.append(Date)
 
             valid = validate(Time[0], Time[1], Time[2]) # validate(f"{x,} for x in Time")
+
             add_task(Title, valid, Priority)
         
         elif User == 2:
