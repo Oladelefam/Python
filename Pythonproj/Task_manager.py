@@ -28,26 +28,39 @@ def validate(year, mon, dat):
     else:
         False
 
+Temp_Task = []
  
 
 
 def add_task(title, time, prior):
+    global Temp_Task
+    
     """ This function takes 3 parameter title, time, prior. """
-
+    empty_brac = []
     if os.path.exists("Tasks.json"):
 
-        Task = {"Title": title,
-                "DUE": time,
-                "Proirity": prior,
-                "Completion": False}
-    
+        try:
+            Task = {"Title": title,
+                    "DUE": time,
+                    "Proirity": prior,
+                    "Completion": False}
+            
+            Temp_Task.append(Task)
         
+            
 
-        with open("Tasks.json", 'a') as file:
-            Save = json.dump(Task, file, indent=4)
+            with open("Tasks.json", 'a') as file:
+                Save = json.dump(Temp_Task, file, indent=4)
+                Temp_Task.clear()
+
+        except json.JSONDecodeError:
+            with open("Tasks.json" "w") as file:
+                json.dump(empty_brac, file)
+
     else:
         with open("Tasks.json", 'w') as file:
-            Save = json.dump([])       
+            Save = json.dump(Task)   
+                
     
 
 
