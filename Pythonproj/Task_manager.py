@@ -1,4 +1,6 @@
-import datetime
+from datetime import datetime
+from rich.console import Console
+from rich.table import Table
 import json
 import os 
 
@@ -14,108 +16,142 @@ print("""1.) Add Task
 
 print("==========================")
 
-Time_que = ["Enter due year: ", "\nEnter due month: ", "\nEnter due day: "]
 
+def validate(Due_date):
 
-Time = []
+    date_format = "%d-%m-%Y"
+    valid = True
 
-def validate(year, mon, dat):
+    try:
+        Date = bool(datetime.strptime(Due_date, date_format))
+
+    except ValueError as e:
+
+        print("Incorrect date format")
+        valid = False
     
-    valid = datetime.datetime(year, mon, dat)
-    if valid:
-        print(valid)
-        return valid.strftime("%D")
-    else:
-        False
-
-Temp_Task = []
- 
+    return valid
 
 
-def add_task(title, time, prior):
-    global Temp_Task
-    
-    """ This function takes 3 parameter title, time, prior. """
-    empty_brac = []
-    if os.path.exists("Tasks.json"):
+def write_file(filename, writing):
+    with open("Task.json", "w") as file:
+        json.dump(writing, file, indent=4)
+
+
+def read_file(filename):
+    with open("Task.json", "r") as file:
+        json.load(file)
+
+
+
+
+
+def add_task(title, Prior, due_date):
+
+    Task = {"Title": title,
+            "Priority": Prior,
+            "Due_date": due_date,
+            "Completion": False}
+     
+    if os.path.exists("Task.json"):
 
         try:
-            Task = {"Title": title,
-                    "DUE": time,
-                    "Proirity": prior,
-                    "Completion": False}
-            
-            Temp_Task.append(Task)
-        
-            
-
-            with open("Tasks.json", 'a') as file:
-                Save = json.dump(Temp_Task, file, indent=4)
-                Temp_Task.clear()
+            read_file("Task.json")
 
         except json.JSONDecodeError:
-            with open("Tasks.json" "w") as file:
-                json.dump(empty_brac, file)
-
+            write_file("Task.json", [])
     else:
-        with open("Tasks.json", 'w') as file:
-            Save = json.dump(Task)   
-                
+        write_file("Task.json", [])
     
+    with open("Task.json", "r") as file:
+        file_read = list(json.load(file))                                    
+ 
+    file_read.append(Task) 
+    write_file("Task.json", file_read) 
+ 
 
+    file_read.clear()
+    print("Task added!!")
 
 
 
 def List_task():
-    pass
 
-def Comp_task():
-    pass
-def del_task():
-    pass
+    Table_title = Table(title="Tasks")
+
+    with open("Task.json", "r") as file:
+        file_read = list(json.load(file))
+    
+    Table_title.add_column("S. No.", style="cyan", no_wrap=True)
+    Table_title.add_column("Task", style="magenta")
+    Table_title.add_column("Status", justify="right", style="green")
+
+
+
+
+    
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 while True:
 
-    User = int(input("\nEnter choices: "))
     try:
+        User_input = int(input("\nEnter choices: "))
 
-        # Add choice
-        if User == 1:
-            Title = input("\nTitle of the task: ")
+        if User_input == 1:
+
+            Title = input("\nEnter task title: ").capitalize()
 
             while len(Title) == 0:
-                print("Title can't be empty")
-                Title = input("\nTitle of the task: ")
+                Title = input("\nEnter task title: ").capitalize()
 
+            priority = input("\nEnter priority level for task - Low, Mid, High: ").capitalize()
 
-            Priority = input("\nTask status(Low, Mid, High): ")
-            
-            print("________Due date in YYYY-MM-DD__________")
-            for item in Time_que:
-                Date = int(input(f"{item}"))
+            while len(priority) == 0:
 
-                Time.append(Date)
+                if priority != "Low" or "Mid" or "High":
 
-            valid = validate(Time[0], Time[1], Time[2]) # validate(f"{x,} for x in Time")
+                    print("This must be either Low, Mid or High")
+                    priority = input("\nEnter priority level for task - Low, Mid, High: ").capitalize
 
-            add_task(Title, valid, Priority)
-        
-        elif User == 2:
+            due = True
+            Due_date = input("\nEnter the due date- D-M-YYYY: ")
+
+            while due:
+                Time = validate(Due_date)
+
+                if Time == True:
+                    due = False
+                else:
+                    Due_date = input("\nEnter the due date: ")
+
+            add_task(Title, priority, Due_date)
+        elif User_input == 2:
             List_task()
-
-        elif User == 3:
-            Comp_task()
-
-        elif User == 4:
-            del_task()
-
-        elif User == 5:
-
-            print("Goodbye.")
-            break
-
-        else:
-            print("Choice has to be between 1-5")
+            
+    
 
     except Exception as e:
-        print(e)
+        print(f"{e}")
+
+
+
+
+    
