@@ -76,39 +76,41 @@ def add_task(title, Prior, due_date):
 
 
 def List_task():
+    global completion
+    console = Console()
+    table = Table(title="Tasks")
 
-    Table_title = Table(title="Tasks")
+    if not os.path.exists("Task.json"):
+        console.print("[bold yellow]No tasks found.[/]")
+        return
 
-    with open("Task.json", "r") as file:
-        file_read = list(json.load(file))
-    
-    Table_title.add_column("S. No.", style="cyan", no_wrap=True)
-    Table_title.add_column("Task", style="magenta")
-    Table_title.add_column("Status", justify="right", style="green")
+    try:
+        with open("Task.json", "r") as file:
+            file_read = json.load(file)
+            if file_read is None:
+                file_read = []
+    except (json.JSONDecodeError, ValueError):
+        console.print("[bold yellow]No tasks to display (corrupt or empty file).[/]")
+        return
 
+    table.add_column("No.", style="cyan", no_wrap=True)
+    table.add_column("Task", style="magenta")
+    table.add_column("Priority", style="yellow")
+    table.add_column("Completion", style="bright_white")
+    table.add_column("Due_date", justify="right", style="green")
 
+    for i, item in enumerate(file_read):
+        completion = "✅" if item.get("Completion") else "❌"
+        table.add_row(str(i + 1), str(item.get("Title", "")), str(item.get("Priority", "")), completion, str(item.get("Due_date", "")))
 
-
-    
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
+    console.print(table)
 
 
 
+def complete_task():
+    global completion
+
+    print(completion)
 
 while True:
 
@@ -122,15 +124,12 @@ while True:
             while len(Title) == 0:
                 Title = input("\nEnter task title: ").capitalize()
 
-            priority = input("\nEnter priority level for task - Low, Mid, High: ").capitalize()
-
-            while len(priority) == 0:
-
-                if priority != "Low" or "Mid" or "High":
-
-                    print("This must be either Low, Mid or High")
-                    priority = input("\nEnter priority level for task - Low, Mid, High: ").capitalize
-
+            priority = input("\nEnter priority level for task - Low, Mid, High: ").strip().capitalize()
+            
+            while priority not in ("High", "Mid", "Low"):
+                print("Make sure it's either High, Mid, or Low")
+                priority = input("\nEnter priority level for task - Low, Mid, High: ").strip().capitalize()
+    
             due = True
             Due_date = input("\nEnter the due date- D-M-YYYY: ")
 
@@ -143,8 +142,12 @@ while True:
                     Due_date = input("\nEnter the due date: ")
 
             add_task(Title, priority, Due_date)
+
         elif User_input == 2:
             List_task()
+        elif User_input == 3:
+             
+            complete_task()
             
     
 
@@ -154,4 +157,3 @@ while True:
 
 
 
-    
