@@ -47,6 +47,7 @@ def read_file(filename):
 
 
 def add_task(title, Prior, due_date):
+    global Task
 
     Task = {"Title": title,
             "Priority": Prior,
@@ -107,10 +108,39 @@ def List_task():
 
 
 
-def complete_task():
+def complete_task(comp_Task):
     global completion
+    console = Console()
+    if not os.path.exists("Task.json"):
+        console.print("[bold yellow]No tasks found.[/]")
+        return
 
-    print(completion)
+    try:
+        with open("Task.json", "r") as file:
+            file_read = json.load(file)
+            if file_read is None:
+                file_read = []
+    except (json.JSONDecodeError, ValueError):
+        console.print("[bold yellow]No tasks to display (corrupt or empty file).[/]")
+        return
+    for item in file_read:
+        
+        if item['Title'] == comp_Task:#
+            new_comp = item['Completion'] == True
+
+            with open("Task.json", "r") as file:
+                file_read = list(json.load(file))                                    
+ 
+    #file_read.remove(item)
+    #file_read.append()
+    #write_file("Task.json", file_read) 
+ 
+
+    #file_read.clear()
+    #print("Task added!!")
+
+
+
 
 while True:
 
@@ -146,8 +176,8 @@ while True:
         elif User_input == 2:
             List_task()
         elif User_input == 3:
-             
-            complete_task()
+            Mark_comp = input("Enter the Title of the task: ")
+            complete_task(Mark_comp)
             
     
 
