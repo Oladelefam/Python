@@ -16,6 +16,22 @@ print("""1.) Add Task
 
 print("==========================")
 
+def file_exist():
+    console = Console()
+
+    if not os.path.exists("Task.json"):
+        console.print("[bold yellow]No tasks found.[/]")
+        return
+
+    try:
+        with open("Task.json", "r") as file:
+            file_read = json.load(file)
+            if file_read is None:
+                file_read = []
+
+
+    except (json.JSONDecodeError, ValueError):
+        console.print("[bold yellow]No tasks to display (corrupt or empty file).[/]")
 
 def validate(Due_date):
 
@@ -34,13 +50,13 @@ def validate(Due_date):
 
 
 def write_file(filename, writing):
-    with open("Task.json", "w") as file:
+    with open(filename, "w") as file:
         json.dump(writing, file, indent=4)
 
 
 def read_file(filename):
     with open("Task.json", "r") as file:
-        json.load(file)
+        return list(json.load(file))
 
 
 
@@ -77,22 +93,13 @@ def add_task(title, Prior, due_date):
 
 
 def List_task():
+
     global completion
     console = Console()
     table = Table(title="Tasks")
 
-    if not os.path.exists("Task.json"):
-        console.print("[bold yellow]No tasks found.[/]")
-        return
-
-    try:
-        with open("Task.json", "r") as file:
-            file_read = json.load(file)
-            if file_read is None:
-                file_read = []
-    except (json.JSONDecodeError, ValueError):
-        console.print("[bold yellow]No tasks to display (corrupt or empty file).[/]")
-        return
+    file_exist()
+    file_read = read_file("Task.json")
 
     table.add_column("No.", style="cyan", no_wrap=True)
     table.add_column("Task", style="magenta")
@@ -108,36 +115,38 @@ def List_task():
 
 
 
-def complete_task(comp_Task):
+def complete_task():
     global completion
+    table = Table(title="Tasks")
     console = Console()
-    if not os.path.exists("Task.json"):
-        console.print("[bold yellow]No tasks found.[/]")
-        return
 
-    try:
-        with open("Task.json", "r") as file:
-            file_read = json.load(file)
-            if file_read is None:
-                file_read = []
-    except (json.JSONDecodeError, ValueError):
-        console.print("[bold yellow]No tasks to display (corrupt or empty file).[/]")
-        return
-    for item in file_read:
+    file_exist()
+
+
+    table.add_column("No.", style="cyan", no_wrap=True)
+    table.add_column("Task", style="magenta")
+    table.add_column("Priority", style="yellow")
+    table.add_column("Completion", style="bright_white")
+    table.add_column("Due_date", justify="right", style="green")
+
+    file_read = read_file("Task.json")
+    for i, item in enumerate(file_read):
+        completion = "✅" if item.get("Completion") else "❌"
+        table.add_row(str(i + 1), str(item.get("Title", "")), str(item.get("Priority", "")), completion, str(item.get("Due_date", "")))
+
+    console.print(table)
+    User_input = input("Enter the task you have completed: ")
+    
+    for idx in file_read:
         
-        if item['Title'] == comp_Task:#
-            new_comp = item['Completion'] == True
+        if idx['Title'] == User_input:
+            idx.update({"Completion" : True})
+        
+            file_read.append(idx)
+        else:
+            console.print("[bold yellow]No tasks found.[/]")
 
-            with open("Task.json", "r") as file:
-                file_read = list(json.load(file))                                    
- 
-    #file_read.remove(item)
-    #file_read.append()
-    #write_file("Task.json", file_read) 
- 
-
-    #file_read.clear()
-    #print("Task added!!")
+        write_file("Task.json", file_read)
 
 
 
@@ -176,8 +185,8 @@ while True:
         elif User_input == 2:
             List_task()
         elif User_input == 3:
-            Mark_comp = input("Enter the Title of the task: ")
-            complete_task(Mark_comp)
+
+            complete_task()
             
     
 
