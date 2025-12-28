@@ -67,7 +67,7 @@ def list_contacts():
 
 def search_contacts(name):#Last one
     global File
-
+    #This isn't totally complete because if there are different numbers with the same name it only prints one.
     print(File.loc[File.Name == name])
       
 

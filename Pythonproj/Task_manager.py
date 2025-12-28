@@ -1,4 +1,6 @@
-import datetime
+from datetime import datetime
+from rich.console import Console
+from rich.table import Table
 import json
 import os 
 
@@ -13,96 +15,214 @@ print("""1.) Add Task
 5.) Quit\n""")
 
 print("==========================")
+def Table_write():
 
-Time_que = ["Enter due year: ", "\nEnter due month: ", "\nEnter due day: "]
+    console = Console()
+    table = Table(title="Tasks")
+
+    table.add_column("No.", style="cyan", no_wrap=True)
+    table.add_column("Task", style="magenta")
+    table.add_column("Priority", style="yellow")
+    table.add_column("Completion", style="bright_white")
+    table.add_column("Due_date", justify="right", style="green")
+
+    file_read = read_file("Task.json")
+    for i, item in enumerate(file_read):
+        completion = "✅" if item.get("Completion") else "❌"
+        table.add_row(str(i + 1), str(item.get("Title", "")), str(item.get("Priority", "")), completion, str(item.get("Due_date", "")))
+
+    console.print(table)
+
+def file_exist():
+    console = Console()
+
+    if not os.path.exists("Task.json"):
+        console.print("[bold yellow]No tasks found.[/]")
+        return
+
+    try:
+        with open("Task.json", "r") as file:
+            file_read = json.load(file)
+            if file_read is None:
+                with open("Task.json", 'w') as File:
+                    json.dump([])
 
 
-Time = []
+    except (json.JSONDecodeError, ValueError):
+        console.print("[bold yellow]No tasks to display (corrupt or empty file).[/]")
 
-def validate(year, mon, dat):
+        with open("Task.json", 'w') as File:
+            json.dump([])
+
+def validate(Due_date):
+
+    date_format = "%d-%m-%Y"
+    valid = True
+
+    try:
+        Date = bool(datetime.strptime(Due_date, date_format))
+
+    except ValueError as e:
+
+        print("Incorrect date format, D-MM-YYYY")
+        valid = False
     
-    valid = datetime.datetime(year, mon, dat)
-    if valid:
-        print(valid)
-        return valid.strftime("%D")
-    else:
-        False
+    return valid
 
+
+def write_file(filename, writing):
+    with open(filename, "w") as file:
+        json.dump(writing, file, indent=4)
+
+
+def read_file(filename):
+    with open(filename, "r") as file:
+        return list(json.load(file))
+
+
+
+
+
+def add_task(title, Prior, due_date):
+
+
+    Task = {"Title": title,
+            "Priority": Prior,
+            "Due_date": due_date,
+            "Completion": False}
+     
+    if os.path.exists("Task.json"):
+
+        try:
+            file_read = list(read_file("Task.json"))
+
+        except json.JSONDecodeError:
+            write_file("Task.json", [])
  
-
-
-def add_task(title, time, prior):
-    """ This function takes 3 parameter title, time, prior. """
-
-    if os.path.exists("Tasks.json"):
-
-        Task = {"Title": title,
-                "DUE": time,
-                "Proirity": prior,
-                "Completion": False}
     
-        
+    file_read.append(Task) 
+    write_file("Task.json", file_read) 
+ 
+    print("Task added!!")
 
-        with open("Tasks.json", 'a') as file:
-            Save = json.dump(Task, file, indent=4)
+
+
+
+
+
+def complete_task():
+
+    file_exist()
+
+    Table_write()
+    try:
+        selection = int(input("Enter the number of the task you have completed: ").strip())
+    except ValueError:
+        print("Please enter a valid number.")
+        return
+
+    file_read = read_file("Task.json")
+    idx = selection - 1
+    if idx < 0 or idx >= len(file_read):
+        print("Invalid task number.")
+        return
+
+    file_read[idx]["Completion"] = True
+    write_file("Task.json", file_read)
+    print("Congratulations! You've completed a task.")
+
+
+
+def Del_task():
+    table = Table(title="Tasks")
+    console = Console()
+
+    file_exist()
+
+    Table_write()
+    input_user = input("Would you rather delete all the task - type yes - or delete a specific task (type no): ").strip().lower()
+
+    file_read = read_file("Task.json")
+
+    if input_user == 'yes':
+        file_read.clear()
+        write_file("Task.json", file_read)
+        print("All tasks deleted.")
+    elif input_user == 'no':
+        Del_input = input("What task do you want delete (enter number or exact title): ").strip()
+
+        # try treating input as a number first
+        try:
+            num = int(Del_input)
+            idx = num - 1
+            if 0 <= idx < len(file_read):
+                removed = file_read.pop(idx)
+                write_file("Task.json", file_read)
+                print(f"You've removed a task: {removed.get('Title')}")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            # treat input as title
+            for item in list(file_read):
+                if item.get('Title') == Del_input:
+                    file_read.remove(item)
+                    write_file("Task.json", file_read)
+                    print("You've removed a task.")
+                    break
+            else:
+                print("Task not found.")
     else:
-        with open("Tasks.json", 'w') as file:
-            Save = json.dump([])       
-    
+        print("No changes made.")
 
-
-
-
-def List_task():
-    pass
-
-def Comp_task():
-    pass
-def del_task():
-    pass
 
 while True:
 
-    User = int(input("\nEnter choices: "))
-    try:
+    
+        User_input = input("\nEnter the number of the choice or type quit to exit: ")
 
-        # Add choice
-        if User == 1:
-            Title = input("\nTitle of the task: ")
+        if int(User_input) == 1:
+            try:
+                Title = input("\nEnter task title: ").capitalize()
 
-            while len(Title) == 0:
-                print("Title can't be empty")
-                Title = input("\nTitle of the task: ")
+                while len(Title) == 0:
+                    Title = input("\nEnter task title: ").capitalize()
 
-
-            Priority = input("\nTask status(Low, Mid, High): ")
-            
-            print("________Due date in YYYY-MM-DD__________")
-            for item in Time_que:
-                Date = int(input(f"{item}"))
-
-                Time.append(Date)
-
-            valid = validate(Time[0], Time[1], Time[2]) # validate(f"{x,} for x in Time")
-
-            add_task(Title, valid, Priority)
+                priority = input("\nEnter priority level for task - Low, Mid, High: ").strip().capitalize()
+                
+                while priority not in ("High", "Mid", "Low"):
+                    print("Make sure it's either High, Mid, or Low")
+                    priority = input("\nEnter priority level for task - Low, Mid, High: ").strip().capitalize()
         
-        elif User == 2:
-            List_task()
+                due = True
+                Due_date = input("\nEnter the due date- D-M-YYYY: ")
 
-        elif User == 3:
-            Comp_task()
+                while due:
+                    Time = validate(Due_date)
 
-        elif User == 4:
-            del_task()
+                    if Time == True:
+                        due = False
+                    else:
+                        Due_date = input("\nEnter the due date: ")
 
-        elif User == 5:
+                add_task(Title, priority, Due_date)
+            except Exception as Exe:
+                print(f"The python code just discovered a {Exe}")
 
-            print("Goodbye.")
-            break
+        elif int(User_input) == 2:
+            Table_write()
+        elif int(User_input) == 3:
 
+            complete_task()
+        elif int(User_input) == 4:
+            Del_task()
+        elif User_input == 'quit':
+            exit("Bye")
         else:
-            print("Choice has to be between 1-5")
+            print("Invalid input")
+            
+    
 
-    except Exception as e:
-        print(e)
+
+
+
+
