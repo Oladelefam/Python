@@ -65,6 +65,7 @@ def total_expenses():
 
 def export_to_csv(filename):
     global Expenses
+    assert filename == 'Expense.csv', f"No you are wrong you have to use {filename}"
 
     File = pd.DataFrame(list((Expenses.items())), columns=["Descripition", "Amount"])
 

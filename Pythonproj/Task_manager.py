@@ -15,6 +15,8 @@ print("""1.) Add Task
 5.) Quit\n""")
 
 print("==========================")
+
+
 def Table_write():
 
     console = Console()
@@ -178,9 +180,9 @@ def Del_task():
 while True:
 
     
-        User_input = input("\nEnter the number of the choice or type quit to exit: ")
+        User_input = input("\nEnter the number of the choice or type quit to exit: ").capitalize()
 
-        if int(User_input) == 1:
+        if int(User_input) == 1 or User_input == "Add Task":
             try:
                 Title = input("\nEnter task title: ").capitalize()
 
@@ -208,17 +210,18 @@ while True:
             except Exception as Exe:
                 print(f"The python code just discovered a {Exe}")
 
-        elif int(User_input) == 2:
+        elif int(User_input) == 2 or User_input == "List Task":
             Table_write()
-        elif int(User_input) == 3:
+        elif int(User_input) == 3 or User_input == "Complete Task":
 
             complete_task()
-        elif int(User_input) == 4:
+        elif int(User_input) == 4 or User_input == "Delete Task":
             Del_task()
         elif User_input == 'quit':
             exit("Bye")
         else:
             print("Invalid input")
+            User_input = input("\nEnter the number of the choice or type quit to exit: ").capitalize()
             
     
 
