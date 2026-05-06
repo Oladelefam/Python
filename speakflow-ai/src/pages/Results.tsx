@@ -5,7 +5,7 @@ import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer,
   LineChart, Line, XAxis, YAxis, Tooltip,
 } from 'recharts'
-import { ArrowLeft, Sparkles, CheckCircle2, AlertTriangle, Dumbbell, Mic, TrendingUp, ArrowRight } from 'lucide-react'
+import { ArrowLeft, Sparkles, CircleCheck as CheckCircle2, TriangleAlert as AlertTriangle, Dumbbell, Mic, TrendingUp, ArrowRight } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
 import { generateAnalysis } from '../lib/analysis'

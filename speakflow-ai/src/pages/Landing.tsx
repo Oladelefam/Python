@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Mic, Eye, BarChart3, Sparkles, ArrowRight, Play, Target, TrendingUp, Shield } from 'lucide-react'
+import { Mic, Eye, ChartBar as BarChart3, Sparkles, ArrowRight, Play, Target, TrendingUp, Shield } from 'lucide-react'
 
 const features = [
   { icon: Eye, title: 'AI Eye Tracking', description: 'Real-time analysis of your eye contact patterns and gaze direction.', color: 'text-blue-400', bg: 'bg-blue-500/10' },
