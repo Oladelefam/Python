@@ -76,45 +76,46 @@ def export_to_csv(filename):
 while True:
 
     Exported = False
-    try:
-        User_choice = int(input("Enter choice: "))
 
-        if User_choice == 1:
+    User_choice = int(input("Enter choice: "))
+    assert User_choice == int, f"Try again" 
+    
+    if User_choice == 1:
+        try:
             Description = input("Description: ").capitalize()
             Amount = float(input("Amount: "))
             
             add_expenses(Description, f"£{Amount:.2f}")
             print(Expenses)
             print("Added!")
-            
+        except Exception as val:
+            print(f"Try again {val}")
+
+    elif User_choice == 2:
+        print("Expenses: ")
+        
+        list_expenses()
+        
 
 
-        elif User_choice == 2:
-            print("Expenses: ")
-            
-            list_expenses()
-            
+    elif User_choice == 3:
+        total_expenses()
+        
 
 
-        elif User_choice == 3:
-            total_expenses()
-            
+    elif User_choice == 4:
+        export_to_csv("Expense.csv")
+        print("Exported to expenses.csv")
+        Exported = True
+        
 
-
-        elif User_choice == 4:
-            export_to_csv("Expense.csv")
-            print("Exported to expenses.csv")
-            Exported = True
-            
-
-        elif User_choice == 5:
-            if Exported:
-                print("Goodbye!")
-                break
-            else:
-                print("Make sure that you have save your expense")
+    elif User_choice == 5:
+        if Exported:
+            print("Goodbye!")
+            break
         else:
-            print("Invalid input. It has to be a number from 1-5")
+            print("Make sure that you have save your expense")
+    else:
+        print("Invalid input. It has to be a number from 1-5")
 
-    except Exception as e:
-        print(e)
+

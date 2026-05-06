@@ -17,6 +17,7 @@ class Item:
     
     def apply_discount(self):
         self.price = self.price * self.pay_rate
+    
 
 item1 = Item("Phone", 100, 1)
 item1.apply_discount()
